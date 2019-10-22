@@ -29,7 +29,7 @@ for /f "usebackq tokens=*" %%i in (`%vswhere% -all -prerelease -latest -version 
 )
 
 set VsInstallDir=C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools 
-CALL "%VsInstallDir%\Common7\Tools\VsDevCmd.bat"
+
 IF NOT DEFINED VsInstallDir (
   echo ERROR: Could not locate a Visual Studio installation with required components.
   echo Refer to Readme.md for a list of the required Visual Studio components.
@@ -50,9 +50,9 @@ IF NOT EXIST %msbuild% (
 
 :: Restore all dependencies.
 %nuget% restore %PROJFS_SRCDIR%\ProjectedFSLib.Managed.sln
-dotnet restore %PROJFS_SRCDIR%\ProjectedFSLib.Managed.sln /p:Configuration=%SolutionConfiguration% /p:VCTargetsPath="C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140" --packages %PROJFS_PACKAGESDIR% || exit /b 1
+"%VsInstallDir%\Common7\Tools\VsDevCmd.bat"&dotnet restore %PROJFS_SRCDIR%\ProjectedFSLib.Managed.sln /p:Configuration=%SolutionConfiguration% /p:VCTargetsPath="C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140" --packages %PROJFS_PACKAGESDIR% || exit /b 1
 
 :: Kick off the build.
-!msbuild! %PROJFS_SRCDIR%\ProjectedFSLib.Managed.sln /p:ProjFSManagedVersion=%ProjFSManagedVersion% /p:Configuration=%SolutionConfiguration% /p:Platform=x64 /p:PlatformToolset=!PlatformToolset! || exit /b 1
+"%VsInstallDir%\Common7\Tools\VsDevCmd.bat"&msbuild %PROJFS_SRCDIR%\ProjectedFSLib.Managed.sln /p:ProjFSManagedVersion=%ProjFSManagedVersion% /p:Configuration=%SolutionConfiguration% /p:Platform=x64 /p:PlatformToolset=!PlatformToolset! || exit /b 1
 
 ENDLOCAL

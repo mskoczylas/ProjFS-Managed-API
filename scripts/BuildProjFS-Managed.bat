@@ -50,7 +50,7 @@ IF NOT EXIST %msbuild% (
 
 :: Restore all dependencies.
 echo Step1
-%nuget% -MSBuildPath '%VsInstallDir%' restore %PROJFS_SRCDIR%\ProjectedFSLib.Managed.sln
+%nuget% restore %PROJFS_SRCDIR%\ProjectedFSLib.Managed.sln -MSBuildPath '%VsInstallDir%'
 echo Step2
 "%VsInstallDir%\Common7\Tools\VsDevCmd.bat"&dotnet restore %PROJFS_SRCDIR%\ProjectedFSLib.Managed.sln /p:Configuration=%SolutionConfiguration% /p:VCTargetsPath="C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140" --packages %PROJFS_PACKAGESDIR% || exit /b 1
 echo Step3

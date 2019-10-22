@@ -50,7 +50,7 @@ IF NOT EXIST %msbuild% (
 
 :: Restore all dependencies.
 echo Step1
-%nuget% restore %PROJFS_SRCDIR%\ProjectedFSLib.Managed.sln -MSBuildPath "%VsInstallDir%\MSBuild\Current\Bin"
+%nuget% restore %PROJFS_SRCDIR%\ProjectedFSLib.Managed.sln -MSBuildPath "%VsInstallDir%\MSBuild\15.0\Bin\amd64"
 echo Step2 "%VsInstallDir%\Common7\Tools\VsDevCmd.bat"&
 dotnet restore %PROJFS_SRCDIR%\ProjectedFSLib.Managed.sln /p:Configuration=%SolutionConfiguration% /p:VCTargetsPath="C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140" --packages %PROJFS_PACKAGESDIR% || exit /b 1
 echo Step3 "%VsInstallDir%\Common7\Tools\VsDevCmd.bat"&

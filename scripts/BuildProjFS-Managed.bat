@@ -28,6 +28,8 @@ for /f "usebackq tokens=*" %%i in (`%vswhere% -all -prerelease -latest -version 
   set VsInstallDir=%%i
 )
 
+set VsInstallDir=C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional
+
 IF NOT DEFINED VsInstallDir (
   echo ERROR: Could not locate a Visual Studio installation with required components.
   echo Refer to Readme.md for a list of the required Visual Studio components.
